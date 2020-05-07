@@ -1,37 +1,14 @@
+#!/bin/bash
+
 set -e
 
 # Default settings
-CLI=${CLI:-./.grassdoor-frontend-nextjs}
-REPO=${REPO:-bidchatindia/grassdoor-frontend-nextjs}
+CLI=${CLI:-~/.grassdoor-cli}
+REPO=${REPO:-sumantabidchat/grassdoor-cli-poc}
 REMOTE=${REMOTE:-https://github.com/${REPO}.git}
 BRANCH=${BRANCH:-master}
 
-setup_color() {
-	# Only use colors if connected to a terminal
-	if [ -t 1 ]; then
-		RED=$(printf '\033[31m')
-		GREEN=$(printf '\033[32m')
-		YELLOW=$(printf '\033[33m')
-		BLUE=$(printf '\033[34m')
-		BOLD=$(printf '\033[1m')
-		RESET=$(printf '\033[m')
-	else
-		RED=""
-		GREEN=""
-		YELLOW=""
-		BLUE=""
-		BOLD=""
-		RESET=""
-	fi
-}
-
-command_exists() {
-	command -v "$@" >/dev/null 2>&1
-}
-
-error() {
-	echo ${RED}"Error: $@"${RESET} >&2
-}
+source ../helper.sh
 
 clone_project() {
 	# Prevent the cloned repository from having insecure permissions. Failing to do
@@ -41,7 +18,7 @@ clone_project() {
 	# precedence over umasks except for filesystems mounted with option "noacl".
 	umask g-w,o-w
 
-	echo "${BLUE}Cloning grassdoor-next-js...${RESET}"
+	echo "${BLUE}Cloning grassdoor-cli...${RESET}"
 
 	command_exists git || {
 		error "git is not installed"
@@ -63,38 +40,24 @@ clone_project() {
 		exit 1
 	}
 
-	echo
+  echo
 }
 
 main() {
-  echo "${BLUE}Cloning grassdoor-next-js...${RESET}"
-
   setup_color
   clone_project
 
   printf "$GREEN"
 	cat <<-'EOF'
-    PROJECT WAS CLONED SUCCESSFULLY
+   ____                       _                        ____ _ _ 
+  / ___|_ __ __ _ ___ ___  __| | ___   ___  _ __      / ___| (_)
+ | |  _| '__/ _` / __/ __|/ _` |/ _ \ / _ \| '__|____| |   | | |
+ | |_| | | | (_| \__ \__ \ (_| | (_) | (_) | | |_____| |___| | |
+  \____|_|  \__,_|___/___/\__,_|\___/ \___/|_|        \____|_|_|  ....is now installed!                                                                 
+
 	EOF
 	printf "$RESET"
-
-  # Relace ./src and ./store folder
-  for file in ${CLI}/*; do
-    BASENAME=$(basename "$file")
-    if [ $BASENAME == 'src'  -o  $BASENAME == 'stores' -a -d $file ] 
-    then
-      echo "${BLUE}Copy $BASENAME ${RESET}" 
-      # Remove if the directory present
-      if [ -d ./$BASENAME ]
-      then 
-        rm -R ./$BASENAME
-      fi
-      cp -R ${CLI}/$BASENAME ./$BASENAME
-    fi
-  done
-
-  echo "${GREEN}Provide system password to delete tmp cloned repository copy${RESET}" 
-  sudo rm -r ${CLI}
+  echo "${YELLOW}Run grassdoor-cli to try it out.${RESET}"
 }
 
 main
