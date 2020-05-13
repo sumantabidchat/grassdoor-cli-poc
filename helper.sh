@@ -33,7 +33,7 @@ is_dir_empty() {
     LENGTH+=1
   done
 
-  if [LENGTH -gt 0]
+  if [$LENGTH -gt 0]
   then
     return 0
   else
