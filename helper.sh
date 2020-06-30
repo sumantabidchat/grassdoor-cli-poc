@@ -28,16 +28,12 @@ error() {
 }
 
 is_dir_empty() {
-  LENGTH=0
-  for file in $1/*; do
-    LENGTH+=1
-  done
-
-  if [$LENGTH -gt 0]
-  then
-    return 0
+  if [ -z "$(ls ./)" ]; then
+    echo "Empty"
+    return "EMPTY"
   else
-    return 1
+    echo "Not Empty"
+    return "NOT_EMPTY"
   fi
 }
 

@@ -4,7 +4,7 @@ set -e
 
 # Default settings
 CLI=${CLI:-~/.grassdoor-cli}
-REPO=${REPO:-sumantabidchat/grassdoor-cli-poc}
+REPO=${REPO:-bidchatindia/nextjs_cli}
 REMOTE=${REMOTE:-https://github.com/${REPO}.git}
 BRANCH=${BRANCH:-master}
 
