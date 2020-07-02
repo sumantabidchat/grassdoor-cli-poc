@@ -31,9 +31,9 @@ exc_clone() {
   # Call is_dir_empty from helper.sh
   is_dir_empty
   # IS_EMPTY is the return value from is_dir_empty function
-  IS_EMPTY="EMPTY"
+  IS_EMPTY=$?
   # IS_EMPTY=0
-  if [ "$IS_EMPTY" = "EMPTY" ]
+  if [ "$IS_EMPTY" -et 1 ]
   then
     # Call clone_repo from clone.sh
     clone_repo
@@ -72,33 +72,33 @@ exc_upgrade() {
   fi
 }
 
-grassdoor-cli() {
-  # Check arguments
-  # Display help message if no argument is passed
-  if [ "$#" -ne 1 ];
-  then
-    display_help_message
-    return
-  else
-    case $1 in
-      -h | --help )
-        display_help_message
-        ;;
-      # Clone and create project
-      clone)
-        exc_clone
-        ;;
-      # Upgrade the current project with grassdoor-framework
-      upgrade)
-        exc_upgrade
-        ;;
-      # Display error message for all other command
-      *)
-        error "Not a valid command!!"
-        display_help_message
-        ;;
-    esac
-  fi
+# grassdoor-cli() {
+# Check arguments
+# Display help message if no argument is passed
+if [ "$#" -ne 1 ];
+then
+  display_help_message
+  exit 1
+else
+  case $1 in
+    -h | --help )
+      display_help_message
+      ;;
+    # Clone and create project
+    clone)
+      exc_clone
+      ;;
+    # Upgrade the current project with grassdoor-framework
+    upgrade)
+      exc_upgrade
+      ;;
+    # Display error message for all other command
+    *)
+      error "Not a valid command!!"
+      display_help_message
+      ;;
+  esac
+fi
 
-  return
-}
+# return
+# }

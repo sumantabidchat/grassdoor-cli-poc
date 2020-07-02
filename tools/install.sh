@@ -72,6 +72,11 @@ main() {
   setup_color
   clone_project
 
+  # Copy to /usr/local/bin/
+  # Note: We copy without extension
+  echo "Please provide system password to copy file(s)"
+  sudo cp "${CLI}/grassdoor-cli.sh" /usr/local/bin/grassdoor-cli
+
   printf "$GREEN"
 	cat <<-'EOF'
    ____                       _                        ____ _ _ 

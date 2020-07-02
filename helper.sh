@@ -29,11 +29,9 @@ error() {
 
 is_dir_empty() {
   if [ -z "$(ls ./)" ]; then
-    echo "Empty"
-    return "EMPTY"
+    return 1
   else
-    echo "Not Empty"
-    return "NOT_EMPTY"
+    return 0
   fi
 }
 

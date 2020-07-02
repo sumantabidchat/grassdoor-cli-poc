@@ -11,4 +11,7 @@ if [ -d ~/.grassdoor-cli ]; then
   rm -rf ~/.grassdoor-cli
 fi
 
+echo "Please provide system password to delete file(s)"
+sudo rm -f /usr/local/bin/grassdoor-cli
+
 echo "Thanks for trying out Grassdoor-Cli. It's been uninstalled."
