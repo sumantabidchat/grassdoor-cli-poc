@@ -76,6 +76,8 @@ main() {
   # Note: We copy without extension
   echo "Please provide system password to copy file(s)"
   sudo cp "${CLI}/grassdoor-cli.sh" /usr/local/bin/grassdoor-cli
+  # Provide necessary permission
+  sudo chmod +x /usr/local/bin/grassdoor-cli
 
   printf "$GREEN"
 	cat <<-'EOF'

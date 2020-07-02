@@ -12,6 +12,7 @@ BRANCH=${BRANCH:-master}
 
 source $CLI/helper.sh
 source $CLI/clone.sh
+source $CLI/tools/uninstall.sh
 
 display_help_message() {
 	cat <<-'EOF'
@@ -83,6 +84,10 @@ else
   case $1 in
     -h | --help )
       display_help_message
+      ;;
+    # Uninstall the CLI
+     -u | --uninstall )
+      unstall_grassdoor_cli
       ;;
     # Clone and create project
     clone)
