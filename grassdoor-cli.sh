@@ -79,7 +79,17 @@ exc_upgrade() {
 # Display help message if no argument is passed
 if [ "$#" -ne 1 ];
 then
-  display_help_message
+  printf "$GREEN"
+	cat <<-'EOF'
+   ____                       _                        ____ _ _ 
+  / ___|_ __ __ _ ___ ___  __| | ___   ___  _ __      / ___| (_)
+ | |  _| '__/ _` / __/ __|/ _` |/ _ \ / _ \| '__|____| |   | | |
+ | |_| | | | (_| \__ \__ \ (_| | (_) | (_) | | |_____| |___| | |
+  \____|_|  \__,_|___/___/\__,_|\___/ \___/|_|        \____|_|_|                                                          
+
+	EOF
+	printf "$RESET"
+  echo "${YELLOW}Run grassdoor-cli to try it out.${RESET}"
   exit 1
 else
   case $1 in
