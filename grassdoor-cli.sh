@@ -89,7 +89,7 @@ then
 
 	EOF
 	printf "$RESET"
-  echo "${YELLOW}Run grassdoor-cli to try it out.${RESET}"
+  echo "${YELLOW}Run grassdoor-cli --help to check available commands.${RESET}"
   exit 1
 else
   case $1 in
