@@ -33,6 +33,10 @@ git config rebase.autoStash true
 printf "${BLUE}%s${RESET}\n" "Updating Grassdoor-Cli"
 if git pull --rebase --stat origin master
 then
+  echo "Please provide system password to copy file(s)"
+  sudo cp "${CLI}/grassdoor-cli.sh" /usr/local/bin/grassdoor-cli
+  # Provide necessary permission
+  sudo chmod +x /usr/local/bin/grassdoor-cli
   printf "${BLUE}%s\n" "Grassdoor-Cli has been updated and/or is at the current version."
 else
   printf "${RED}%s${RESET}\n" 'There was an error updating. Try again later?'
