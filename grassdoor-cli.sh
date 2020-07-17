@@ -19,8 +19,9 @@ display_help_message() {
     There are available grassdoor-cli commands
 
     clone               Creat new project with Grassdoor Framework
-    upgrade             Update your project with Grassdoor Framework 'master' branch
+    pull                Update your project with Grassdoor Framework 'master' branch
     -h  | --help        Get all available commands
+    -up | --update      Update Grassdoor-Cli
     -u  | --uninstall   To uninstall grassdoor-cli
 	EOF
 }
@@ -85,8 +86,13 @@ else
     -h | --help )
       display_help_message
       ;;
+    # Update the CLI
+    -up | --update )
+      # Check for grassdoor-cli update
+      sh "$CLI/tools/upgrade.sh"
+      ;;
     # Uninstall the CLI
-     -u | --uninstall )
+    -u | --uninstall )
       unstall_grassdoor_cli
       ;;
     # Clone and create project
@@ -94,7 +100,7 @@ else
       exc_clone
       ;;
     # Upgrade the current project with grassdoor-framework
-    upgrade)
+    pull)
       exc_upgrade
       ;;
     # Display error message for all other command
