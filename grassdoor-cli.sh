@@ -9,6 +9,8 @@ FRAMEWORK=${FRAMEWORK:-./.grassdoor-frontend-framework}
 REPO=${REPO:-bidchatindia/grassdoor-frontend-framework}
 REMOTE=${REMOTE:-https://github.com/${REPO}.git}
 BRANCH=${BRANCH:-master}
+INVALID=0
+COMMAND=0
 
 source $CLI/helper.sh
 source $CLI/clone.sh
@@ -74,10 +76,9 @@ exc_upgrade() {
   fi
 }
 
-# grassdoor-cli() {
 # Check arguments
 # Display help message if no argument is passed
-if [ "$#" -ne 1 ];
+if [ "$#" -lt 1 ];
 then
   printf "$GREEN"
 	cat <<-'EOF'
@@ -92,34 +93,60 @@ then
   echo "${YELLOW}Run grassdoor-cli --help to check available commands.${RESET}"
   exit 1
 else
-  case $1 in
-    -h | --help )
-      display_help_message
-      ;;
-    # Update the CLI
-    -up | --update )
-      # Check for grassdoor-cli update
-      sh "$CLI/tools/upgrade.sh"
-      ;;
-    # Uninstall the CLI
-    -u | --uninstall )
-      unstall_grassdoor_cli
-      ;;
-    # Clone and create project
-    clone)
-      exc_clone
-      ;;
-    # Upgrade the current project with grassdoor-framework
-    pull)
-      exc_upgrade
-      ;;
-    # Display error message for all other command
-    *)
-      error "Not a valid command!!"
-      display_help_message
-      ;;
-  esac
-fi
+  # Read all arguments
+  while [ ! -z "$1" ]; do
+    case "$1" in
+      pull | -h | --help | -up | --update | -u | --uninstall | clone)
+        if [ $COMMAND == 0 ]
+        then
+          COMMAND=$1
+        else
+          INVALID=1
+        fi
+        ;;
+      origin)
+        shift
+        BRANCH=$1
+        ;;
+      *)
+        INVALID=1
+        ;;
+    esac
+    shift
+  done
 
-# return
-# }
+  # Display error message if invalid command found
+  if [ $INVALID == 1 ]
+  then
+    error "Not a valid command!!"
+    display_help_message
+  else
+    case $COMMAND in
+      -h | --help )
+        display_help_message
+        ;;
+      # Update the CLI
+      -up | --update )
+        # Check for grassdoor-cli update
+        sh "$CLI/tools/upgrade.sh"
+        ;;
+      # Uninstall the CLI
+      -u | --uninstall )
+        unstall_grassdoor_cli
+        ;;
+      # Clone and create project
+      clone)
+        exc_clone
+        ;;
+      # Upgrade the current project with grassdoor-framework
+      pull)
+        exc_upgrade
+        ;;
+      # Display error message for all other command
+      *)
+        error "Not a valid command!!"
+        display_help_message
+        ;;
+    esac
+  fi
+fi
