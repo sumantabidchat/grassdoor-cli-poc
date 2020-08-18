@@ -20,11 +20,11 @@ display_help_message() {
 	cat <<-'EOF'
     There are available grassdoor-cli commands
 
-    clone               Creat new project with Grassdoor Framework
-    pull                Update your project with Grassdoor Framework 'master' branch
-    -h  | --help        Get all available commands
-    -up | --update      Update Grassdoor-Cli
-    -u  | --uninstall   To uninstall grassdoor-cli
+    clone                         Creat new project with Grassdoor Framework
+    pull [origin <branch-name>]   Update your project with Grassdoor Framework (Default branch master)
+    -h  | --help                  Get all available commands
+    -up | --update                Update Grassdoor-Cli
+    -u  | --uninstall             To uninstall grassdoor-cli
 	EOF
 }
 
