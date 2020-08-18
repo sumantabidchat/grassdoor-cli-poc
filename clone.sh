@@ -14,7 +14,7 @@ clone_repo() {
     rm -rf ${FRAMEWORK}
   fi
 
-	echo "${BLUE}Cloning grassdoor-next-js...${RESET}"
+	echo "${BLUE}Cloning grassdoor-frontend-framework (${BRANCH})...${RESET}"
 
 	command_exists git || {
 		error "git is not installed"
